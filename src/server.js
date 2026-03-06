@@ -12,6 +12,7 @@ const notesRoutes = require('./routes/notesRoutes');
 
 const app = express();
 
+// серверний порт  з .env або використовується 3000 
 const PORT = process.env.PORT || 3000;
 
 // підключення до MongoDB
@@ -28,7 +29,7 @@ app.use(notesRoutes);
 // 404
 app.use(notFoundHandler);
 
-// error handler
+// error handler обробник помилок
 app.use(errorHandler);
 
 // запуск сервера
