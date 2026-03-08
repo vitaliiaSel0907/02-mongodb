@@ -1,5 +1,5 @@
-  const createHttpError = require('http-errors');
-const Note = require('../models/note');
+import createHttpError from 'http-errors';
+import Note from '../models/note.js';
 
 const getAllNotes = async (req, res, next) => {
   try {
@@ -70,10 +70,4 @@ const deleteNote = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getAllNotes,
-  getNoteById,
-  createNote,
-  updateNote,
-  deleteNote,
-};
+export { getAllNotes, getNoteById, createNote, updateNote, deleteNote };

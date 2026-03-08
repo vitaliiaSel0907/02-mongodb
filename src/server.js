@@ -1,18 +1,19 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 
-const connectMongoDB = require('./db/connectMongoDB');
-const logger = require('./middleware/logger');
-const notFoundHandler = require('./middleware/notFoundHandler');
-const errorHandler = require('./middleware/errorHandler');
+import connectMongoDB from './db/connectMongoDB.js';
+import logger from './middleware/logger.js';
+import notFoundHandler from './middleware/notFoundHandler.js';
+import errorHandler from './middleware/errorHandler.js';
 
-const notesRoutes = require('./routes/notesRoutes');
+import notesRoutes from './routes/notesRoutes.js';
 
 const app = express();
 
-// серверний порт  з .env або використовується 3000 
+// серверний порт з .env або використовується 3000
 const PORT = process.env.PORT || 3000;
 
 // підключення до MongoDB
