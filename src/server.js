@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // підключення до MongoDB
-connectMongoDB();
+await connectMongoDB();
 
 // middleware
 app.use(logger);
@@ -30,7 +30,7 @@ app.use(notesRoutes);
 // 404
 app.use(notFoundHandler);
 
-// error handler обробник помилок
+// error handler
 app.use(errorHandler);
 
 // запуск сервера
