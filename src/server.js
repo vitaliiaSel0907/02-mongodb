@@ -1,8 +1,9 @@
- import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import { errors } from 'celebrate';
 
 import connectMongoDB from './db/connectMongoDB.js';
 import logger from './middleware/logger.js';
@@ -13,7 +14,7 @@ import notesRoutes from './routes/notesRoutes.js';
 
 const app = express();
 
-// серверний порт з .env або використовується 3000
+// порт із .env
 const PORT = process.env.PORT || 3000;
 
 // підключення до MongoDB
@@ -25,7 +26,10 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use(notesRoutes);
+app.use('/notes', notesRoutes);
+
+// celebrate validation errors
+app.use(errors());
 
 // 404
 app.use(notFoundHandler);
