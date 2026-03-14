@@ -24,9 +24,7 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
-// текстовий індекс для пошуку
+// текстовий індекс
 noteSchema.index({ title: 'text', content: 'text' });
 
-const Note = mongoose.model('Note', noteSchema);
-
-export default Note;
+export const Note = mongoose.model('Note', noteSchema);

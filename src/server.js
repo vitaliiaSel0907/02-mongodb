@@ -14,7 +14,6 @@ import notesRoutes from './routes/notesRoutes.js';
 
 const app = express();
 
-// порт із .env
 const PORT = process.env.PORT || 3000;
 
 // підключення до MongoDB
@@ -26,7 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/notes', notesRoutes);
+app.use(notesRoutes);
 
 // celebrate validation errors
 app.use(errors());
