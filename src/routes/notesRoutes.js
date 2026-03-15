@@ -1,5 +1,7 @@
-import express from 'express';
-import { celebrate } from 'celebrate';
+import express from "express";
+import { celebrate } from "celebrate";
+
+import authenticate from "../middleware/authenticate.js";
 
 import {
   getAllNotesSchema,
@@ -17,6 +19,8 @@ import {
 } from '../controllers/notesController.js';
 
 const router = express.Router();
+
+router.use(authenticate); 
 
 router.get('/', celebrate(getAllNotesSchema), getAllNotes);
 
