@@ -1,5 +1,5 @@
-import createHttpError from 'http-errors';
-import { Note } from '../models/note.js';
+import createHttpError from "http-errors";
+import { Note } from "../models/note.js";
 
 // GET /notes
 export const getAllNotes = async (req, res, next) => {
@@ -10,7 +10,7 @@ export const getAllNotes = async (req, res, next) => {
     const perPageNumber = Number(perPage);
 
     const filter = {
-      userId: req.user._id, 
+      userId: req.user._id,
     };
 
     if (tag) {
@@ -49,11 +49,11 @@ export const getNoteById = async (req, res, next) => {
 
     const note = await Note.findOne({
       _id: noteId,
-      userId: req.user._id, 
+      userId: req.user._id,
     });
 
     if (!note) {
-      throw createHttpError(404, 'Note not found');
+      throw createHttpError(404, "Note not found");
     }
 
     res.status(200).json(note);
@@ -84,14 +84,14 @@ export const updateNote = async (req, res, next) => {
     const updatedNote = await Note.findOneAndUpdate(
       {
         _id: noteId,
-        userId: req.user._id, // 👈 тільки свою можна редагувати
+        userId: req.user._id,
       },
       req.body,
-      { new: true }
+      { returnDocument: "after" }
     );
 
     if (!updatedNote) {
-      throw createHttpError(404, 'Note not found');
+      throw createHttpError(404, "Note not found");
     }
 
     res.status(200).json(updatedNote);
@@ -107,11 +107,11 @@ export const deleteNote = async (req, res, next) => {
 
     const deletedNote = await Note.findOneAndDelete({
       _id: noteId,
-      userId: req.user._id, 
+      userId: req.user._id,
     });
 
     if (!deletedNote) {
-      throw createHttpError(404, 'Note not found');
+      throw createHttpError(404, "Note not found");
     }
 
     res.status(200).json(deletedNote);

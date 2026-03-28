@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 
-import Session from "../models/session.js";
+import { Session } from "../models/session.js"; // 👈 теж виправляємо
 import User from "../models/user.js";
 
 const authenticate = async (req, res, next) => {
@@ -35,4 +35,4 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-export default authenticate;
+export { authenticate }; 
