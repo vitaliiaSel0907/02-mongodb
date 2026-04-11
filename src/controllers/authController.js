@@ -11,7 +11,6 @@ import { Session } from "../models/session.js";
 import { createSession, setSessionCookies } from "../services/auth.js";
 import { sendEmail } from "../utils/sendMail.js";
 
-
 //  REGISTER
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -36,8 +35,7 @@ export const registerUser = async (req, res) => {
   res.status(201).json(user);
 };
 
-
-//  LOGIN
+// LOGIN
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -61,7 +59,6 @@ export const loginUser = async (req, res) => {
 
   res.status(200).json(user);
 };
-
 
 //  REFRESH
 export const refreshUserSession = async (req, res) => {
@@ -91,7 +88,6 @@ export const refreshUserSession = async (req, res) => {
   });
 };
 
-
 //  LOGOUT
 export const logoutUser = async (req, res) => {
   const { sessionId } = req.cookies;
@@ -107,7 +103,6 @@ export const logoutUser = async (req, res) => {
   res.status(204).send();
 };
 
-
 //  REQUEST RESET EMAIL
 export const requestResetEmail = async (req, res, next) => {
   try {
@@ -115,7 +110,7 @@ export const requestResetEmail = async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    // навіть якщо нема юзера — повертаємо успіх
+    // навіть якщо користувача нема — повертаємо успіх
     if (!user) {
       return res.status(200).json({
         message: "Password reset email sent successfully",
@@ -138,12 +133,13 @@ export const requestResetEmail = async (req, res, next) => {
     const link = `${process.env.FRONTEND_DOMAIN}/reset-password?token=${token}`;
 
     const html = template({
-      name: user.email,
+      name: user.username, 
       link,
     });
 
     try {
       await sendEmail({
+        from: process.env.SMTP_FROM, 
         to: email,
         subject: "Reset password",
         html,
@@ -162,7 +158,6 @@ export const requestResetEmail = async (req, res, next) => {
     next(error);
   }
 };
-
 
 //  RESET PASSWORD
 export const resetPassword = async (req, res, next) => {
